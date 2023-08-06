@@ -209,11 +209,11 @@ function codeImg({ text }: { text: string }) {
   }
 
   return (
-    <div className="flex flex-col border border-blue-300 overflow-hidden w-[800px] h-[800px] justify-start items-center">
+    <div className="flex flex-col border border-blue-300 overflow-hidden w-[500px] h-[420px] justify-start items-center">
       <img
         src={codeImg}
-        width="450"
-        height="450"
+        width="350"
+        height="350"
         alt="QR code"
         className="border-spacing-1"
       />
