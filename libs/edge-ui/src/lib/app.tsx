@@ -160,7 +160,7 @@ function ShareNotifications({
                   </div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
                     <p className="text-sm font-medium text-gray-900">
-                      Share success!
+                      Create success!
                     </p>
                     <p className="mt-1 text-sm text-red-500">
                       Please don't sharing link at will! !
@@ -270,7 +270,7 @@ function ShareAnything({
         htmlFor="comment"
         className="block text-sm font-medium text-gray-700"
       >
-        随意要分享的内容.
+        Feel free to share whatever you want.
       </label>
       <div className="mt-1">
         <textarea
