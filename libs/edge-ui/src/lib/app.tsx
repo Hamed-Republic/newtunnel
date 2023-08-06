@@ -209,7 +209,7 @@ function codeImg({ text }: { text: string }) {
   }
 
   return (
-    <div className="flex flex-col border border-blue-300 overflow-hidden w-[80px] h-[80px] justify-start items-center">
+    <div className="flex flex-col border border-blue-300 overflow-hidden w-[800px] h-[800px] justify-start items-center">
       <img
         src={codeImg}
         width="450"
