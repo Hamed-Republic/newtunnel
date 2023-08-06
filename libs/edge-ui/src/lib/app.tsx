@@ -188,13 +188,13 @@ function ShareNotifications({
   );
 }
 
-function QRcodeImg({ text }: { text: string }) {
+function codeImg({ text }: { text: string }) {
   const [codeImg, setcodeImg] = useState('');
   const [copy, setCopy] = useState(false);
   useEffect(() => {
     (async () => {
       if (text) {
-        const dataURL = await QRCode.toDataURL(text);
+        const dataURL = await Code.toDataURL(text);
         setcodeImg(dataURL);
       }
     })();
@@ -209,11 +209,11 @@ function QRcodeImg({ text }: { text: string }) {
   }
 
   return (
-    <div className="flex flex-col border border-blue-300 overflow-hidden w-[500px] h-[420px] justify-start items-center">
+    <div className="flex flex-col border border-blue-300 overflow-hidden w-[80px] h-[80px] justify-start items-center">
       <img
         src={codeImg}
-        width="350"
-        height="350"
+        width="450"
+        height="450"
         alt="QR code"
         className="border-spacing-1"
       />
