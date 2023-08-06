@@ -369,7 +369,7 @@ function Warning() {
           />
         </div>
         <div className="ml-3">
-          <h3 className="text-sm font-medium text-red-700">Notice! !</h3>
+          <h3 className="text-sm font-medium text-red-700">Notice!!</h3>
           <div className="mt-2 text-sm text-red-700">
             <p>Disclosing this page is tantamount to disclosing your settings。</p>
           </div>
