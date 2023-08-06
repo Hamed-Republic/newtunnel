@@ -41,7 +41,7 @@ export function EdgeApp() {
             handleShare={handleShare}
             v2option={v2Option}
           ></ShareActions>
-          <SetUpAlert></SetUpAlert>
+          {/* <SetUpAlert></SetUpAlert> */}
           <ShareAnything handleShare={handleShare}></ShareAnything>
         </div>
       </div>
@@ -105,16 +105,16 @@ function SetUpAlert() {
           />
         </div>
         <div className="ml-3">
-          <h3 className="text-sm font-medium text-yellow-800">Please note!</h3>
+          <h3 className="text-sm font-medium text-yellow-800">请注意！</h3>
           <div className="mt-2 text-sm text-yellow-700">
             <p>
-              If you are unable to connect to the Internet, please check/refer to the specific client &nbsp;
+              如果遇到连不上网的情况, 请查看/参考具体客户端的 &nbsp;
               <a
                 target="_blank"
                 href="https://github.com/zizifn/edgetunnel#%E5%AE%A2%E6%88%B7%E7%AB%AF-v2rayn-%E9%85%8D%E7%BD%AE"
                 className="font-medium text-yellow-700 underline hover:text-yellow-600"
               >
-                DNS related settings.
+                DNS 相关设置。
               </a>
             </p>
           </div>
@@ -160,10 +160,10 @@ function ShareNotifications({
                   </div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
                     <p className="text-sm font-medium text-gray-900">
-                      Share success!
+                      分享成功！
                     </p>
                     <p className="mt-1 text-sm text-red-500">
-                     Please don't leak the sharing link at will! !
+                      请不要随意泄露分享链接！！
                     </p>
                   </div>
                   <div className="flex flex-shrink-0 ml-4">
@@ -188,13 +188,13 @@ function ShareNotifications({
   );
 }
 
-function codeImg({ text }: { text: string }) {
+function QRcodeImg({ text }: { text: string }) {
   const [codeImg, setcodeImg] = useState('');
   const [copy, setCopy] = useState(false);
   useEffect(() => {
     (async () => {
       if (text) {
-        const dataURL = await Code.toDataURL(text);
+        const dataURL = await QRCode.toDataURL(text);
         setcodeImg(dataURL);
       }
     })();
@@ -209,19 +209,19 @@ function codeImg({ text }: { text: string }) {
   }
 
   return (
-    <div className="flex flex-col border border-blue-300 overflow-hidden w-[500px] h-[420px] justify-start items-center">
+    <div className="flex flex-col border border-blue-300 overflow-hidden w-auto h-auto justify-start items-center">
       <img
         src={codeImg}
         width="350"
         height="350"
-        alt="QR code"
+        alt="二维码"
         className="border-spacing-1"
       />
-      <div className="flex flex-grow w-full bg-gray-200">
-        <span className="flex-grow break-normal overflow-scroll w-4/5">
+      <div className="flex flex-grow w-auto bg-gray-200">
+        <span className="flex-grow break-all break-word overflow-hidden w-4/5 max-w-2xl">
           {text}
         </span>
-        <div className="w-6 h-6 ml-auto">
+        <div className="w-6 h-6 ml-auto mr-5px">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -270,7 +270,7 @@ function ShareAnything({
         htmlFor="comment"
         className="block text-sm font-medium text-gray-700"
       >
-      Feel free to share whatever you want.
+        随意要分享的内容.
       </label>
       <div className="mt-1">
         <textarea
@@ -288,7 +288,7 @@ function ShareAnything({
           type="submit"
           className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-transparent rounded-md shadow-sm hover:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >
-          Share
+          分享
         </button>
       </div>
     </div>
@@ -302,6 +302,9 @@ function ShareActions({
   handleShare: (text: string) => void;
   v2option: V2Option;
 }) {
+  useEffect(() => {
+    handleShare(getVlessURL());
+  }, [v2option]);
   function getPageURL() {
     return window.location.href;
   }
@@ -326,27 +329,30 @@ function ShareActions({
     }
     let tls = '';
     if (isHttps) {
-      tls = `&security=tls`;
+      tls = `&security=tls&fp=randomized&sni=${url.hostname}`;
     }
     return `vless://${uuid}@${
       url.hostname
-    }:${port}?encryption=none${tls}&type=ws${pathParam || ''}#${url.hostname}`;
+    }:${port}?encryption=none${tls}&type=ws&host=${url.hostname}${
+      pathParam || ''
+    }#${url.hostname}`;
   }
   return (
     <span className="inline-flex self-center mt-4 rounded-md shadow-sm isolate">
+      <button
+        onClick={() => handleShare(getVlessURL())}
+        type="button"
+        className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      >
+        分享 V2ray
+      </button>
+
       <button
         onClick={() => handleShare(getPageURL())}
         type="button"
         className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-md hover:border-indigo-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
       >
-        Share this page
-      </button>
-      <button
-        onClick={() => handleShare(getVlessURL())}
-        type="button"
-        className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-      >
-        Share V2ray
+        分享本页
       </button>
     </span>
   );
@@ -363,9 +369,9 @@ function Warning() {
           />
         </div>
         <div className="ml-3">
-          <h3 className="text-sm font-medium text-red-700">Notice! !</h3>
+          <h3 className="text-sm font-medium text-red-700">注意！！</h3>
           <div className="mt-2 text-sm text-red-700">
-            <p>Disclosing this page is equivalent to disclosing your settings。</p>
+            <p>泄露本页面就等于泄露你的设置。</p>
           </div>
         </div>
       </div>
