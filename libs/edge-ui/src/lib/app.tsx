@@ -305,7 +305,7 @@ function ShareActions({
   useEffect(() => {
     handleShare(getVlessURL());
   }, [v2option]);
-  function getPageURL() {
+  function refreshPage() {
     return window.location.href;
   }
   function getVlessURL() {
@@ -348,7 +348,7 @@ function ShareActions({
       </button>
 
       <button
-        onClick={() => handleShare(getPageURL())}
+        onClick={() => handleShare(refreshPage())}
         type="button"
         className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-md hover:border-indigo-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
       >
